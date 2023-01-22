@@ -4,6 +4,8 @@ import br.dev.s2w.testes.unitarios.entidades.Filme;
 import br.dev.s2w.testes.unitarios.entidades.Locacao;
 import br.dev.s2w.testes.unitarios.entidades.Usuario;
 import br.dev.s2w.testes.unitarios.utils.DataUtils;
+import org.junit.Assert;
+import org.junit.Test;
 
 import java.util.Date;
 
@@ -29,7 +31,8 @@ public class LocacaoService {
         return locacao;
     }
 
-    public static void main(String[] args) {
+    @Test
+    public void teste() {
         // Cenário
         LocacaoService locacaoService = new LocacaoService();
         Usuario usuario = new Usuario("Usuário 1");
@@ -39,8 +42,8 @@ public class LocacaoService {
         Locacao locacao = locacaoService.alugarFilme(usuario, filme);
 
 // Verificação
-        System.out.println(locacao.getValor() == 5.0);
-        System.out.println(DataUtils.isMesmaData(locacao.getDataLocacao(), new Date()));
-        System.out.println(DataUtils.isMesmaData(locacao.getDataRetorno(), DataUtils.obterDataComDiferencaDias(1)));
+        Assert.assertTrue(locacao.getValor() == 5.0);
+        Assert.assertTrue(DataUtils.isMesmaData(locacao.getDataLocacao(), new Date()));
+        Assert.assertTrue(DataUtils.isMesmaData(locacao.getDataRetorno(), DataUtils.obterDataComDiferencaDias(1)));
     }
 }
