@@ -6,6 +6,7 @@ import br.dev.s2w.testes.unitarios.entidades.Usuario;
 import br.dev.s2w.testes.unitarios.exception.FilmeSemEstoqueException;
 import br.dev.s2w.testes.unitarios.exception.LocadoraException;
 import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ErrorCollector;
@@ -20,21 +21,27 @@ import static org.hamcrest.CoreMatchers.is;
 
 public class LocacaoServiceTest {
 
+    private LocacaoService service;
+
     @Rule
     public ErrorCollector error = new ErrorCollector();
 
     @Rule
     public ExpectedException exception = ExpectedException.none();
 
+    @Before
+    public void setup() {
+        service = new LocacaoService();
+    }
+
     @Test
     public void testeLocacao() throws Exception {
         // Cenário
-        LocacaoService locacaoService = new LocacaoService();
         Usuario usuario = new Usuario("Usuário 1");
         Filme filme = new Filme("Filme 1", 1, 5.0);
 
         // Ação
-        Locacao locacao = locacaoService.alugarFilme(usuario, filme);
+        Locacao locacao = service.alugarFilme(usuario, filme);
 
         // Verificação
         error.checkThat(locacao.getValor(), is(equalTo(5.0)));
@@ -45,7 +52,6 @@ public class LocacaoServiceTest {
     @Test(expected = FilmeSemEstoqueException.class)
     public void testeLocacalFilmeSemEstoque() throws Exception {
         // Cenário
-        LocacaoService service = new LocacaoService();
         Usuario usuario = new Usuario("Usuário 1");
         Filme filme = new Filme("Filme 2", 0, 4.0);
 
@@ -56,7 +62,6 @@ public class LocacaoServiceTest {
     @Test
     public void testeLocacaoUsuarioVazio() throws FilmeSemEstoqueException {
         // Cenário
-        LocacaoService service = new LocacaoService();
         Filme filme = new Filme("Filme 2", 0, 4.0);
 
         // Ação
@@ -71,7 +76,6 @@ public class LocacaoServiceTest {
     @Test
     public void testeLocacaoFilmeVazio() throws FilmeSemEstoqueException, LocadoraException {
         // Cenário
-        LocacaoService service = new LocacaoService();
         Usuario usuario = new Usuario("Usuário 1");
 
         exception.expect(LocadoraException.class);
