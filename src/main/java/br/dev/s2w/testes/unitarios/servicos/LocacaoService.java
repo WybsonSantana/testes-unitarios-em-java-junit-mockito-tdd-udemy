@@ -3,6 +3,8 @@ package br.dev.s2w.testes.unitarios.servicos;
 import br.dev.s2w.testes.unitarios.entidades.Filme;
 import br.dev.s2w.testes.unitarios.entidades.Locacao;
 import br.dev.s2w.testes.unitarios.entidades.Usuario;
+import br.dev.s2w.testes.unitarios.exception.FilmeSemEstoqueException;
+import br.dev.s2w.testes.unitarios.exception.LocadoraException;
 
 import java.util.Date;
 
@@ -10,9 +12,17 @@ import static br.dev.s2w.testes.unitarios.utils.DataUtils.adicionarDias;
 
 public class LocacaoService {
 
-    public Locacao alugarFilme(Usuario usuario, Filme filme) throws Exception {
+    public Locacao alugarFilme(Usuario usuario, Filme filme) throws FilmeSemEstoqueException, LocadoraException {
+        if (usuario == null) {
+throw new LocadoraException("Usuário vazio");
+        }
+
+        if (filme == null) {
+            throw new LocadoraException("Filme vazio");
+        }
+
         if (filme.getEstoque() == 0) {
-            throw new Exception("Filme sem estoque");
+            throw new FilmeSemEstoqueException();
         }
 
         Locacao locacao = new Locacao();
