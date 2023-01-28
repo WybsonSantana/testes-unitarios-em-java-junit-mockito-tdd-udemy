@@ -1,5 +1,3 @@
-package br.dev.s2w.testes.unitarios.servicos;
-
 import br.dev.s2w.testes.unitarios.entidades.Usuario;
 import org.junit.Assert;
 import org.junit.Test;
