@@ -13,6 +13,7 @@ import org.junit.rules.ErrorCollector;
 import org.junit.rules.ExpectedException;
 
 import java.util.Date;
+import java.util.List;
 
 import static br.dev.s2w.testes.unitarios.utils.DataUtils.isMesmaData;
 import static br.dev.s2w.testes.unitarios.utils.DataUtils.obterDataComDiferencaDias;
@@ -38,10 +39,10 @@ public class LocacaoServiceTest {
     public void testeLocacao() throws Exception {
         // Cenário
         Usuario usuario = new Usuario("Usuário 1");
-        Filme filme = new Filme("Filme 1", 1, 5.0);
+        List<Filme> filmes = List.of(new Filme("Filme 1", 1, 5.0));
 
         // Ação
-        Locacao locacao = service.alugarFilme(usuario, filme);
+        Locacao locacao = service.alugarFilme(usuario, filmes);
 
         // Verificação
         error.checkThat(locacao.getValor(), is(equalTo(5.0)));
@@ -53,20 +54,20 @@ public class LocacaoServiceTest {
     public void testeLocacalFilmeSemEstoque() throws Exception {
         // Cenário
         Usuario usuario = new Usuario("Usuário 1");
-        Filme filme = new Filme("Filme 2", 0, 4.0);
+        List<Filme> filmes = List.of(new Filme("Filme 1", 0, 4.0));
 
         // Ação
-        service.alugarFilme(usuario, filme);
+        service.alugarFilme(usuario, filmes);
     }
 
     @Test
     public void testeLocacaoUsuarioVazio() throws FilmeSemEstoqueException {
         // Cenário
-        Filme filme = new Filme("Filme 2", 0, 4.0);
+        List<Filme> filmes = List.of(new Filme("Filme 1", 1, 5.0));
 
         // Ação
         try {
-            service.alugarFilme(null, filme);
+            service.alugarFilme(null, filmes);
             Assert.fail();
         } catch (LocadoraException e) {
             Assert.assertThat(e.getMessage(), is("Usuário vazio"));
