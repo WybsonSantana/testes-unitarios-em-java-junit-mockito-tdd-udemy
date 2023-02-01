@@ -6,10 +6,7 @@ import br.dev.s2w.testes.unitarios.entidades.Usuario;
 import br.dev.s2w.testes.unitarios.exception.FilmeSemEstoqueException;
 import br.dev.s2w.testes.unitarios.exception.LocadoraException;
 import br.dev.s2w.testes.unitarios.utils.DataUtils;
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Rule;
-import org.junit.Test;
+import org.junit.*;
 import org.junit.rules.ErrorCollector;
 import org.junit.rules.ExpectedException;
 
@@ -39,6 +36,7 @@ public class LocacaoServiceTest {
 
     @Test
     public void deveAlugarFilme() throws Exception {
+        Assume.assumeFalse(DataUtils.verificarDiaSemana(new Date(), Calendar.SATURDAY));
         // Cenário
         Usuario usuario = new Usuario("Usuário 1");
         List<Filme> filmes = List.of(new Filme("Filme 1", 1, 5.0));
@@ -164,6 +162,7 @@ public class LocacaoServiceTest {
 
     @Test
     public void deveDevolverFilmeNaSegundaSeAlugarNoSabado() throws FilmeSemEstoqueException, LocadoraException {
+        Assume.assumeTrue(DataUtils.verificarDiaSemana(new Date(), Calendar.SATURDAY));
         // Cenário
         Usuario usuario = new Usuario("Usuário 1");
         List<Filme> filmes = List.of(new Filme("Filme 1", 1, 5.0));
