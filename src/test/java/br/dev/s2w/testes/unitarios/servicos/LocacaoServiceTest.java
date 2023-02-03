@@ -14,6 +14,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
+import static br.dev.s2w.testes.unitarios.matchers.MatchersProprios.caiNumaSegunda;
 import static br.dev.s2w.testes.unitarios.utils.DataUtils.isMesmaData;
 import static br.dev.s2w.testes.unitarios.utils.DataUtils.obterDataComDiferencaDias;
 import static org.hamcrest.CoreMatchers.equalTo;
@@ -97,9 +98,7 @@ public class LocacaoServiceTest {
         Locacao locacao = service.alugarFilme(usuario, filmes);
 
         // Verificação
-        boolean isSegunda = DataUtils.verificarDiaSemana(locacao.getDataRetorno(), Calendar.MONDAY);
-
-        Assert.assertTrue(isSegunda);
+        Assert.assertThat(locacao.getDataRetorno(), caiNumaSegunda());
     }
 
 
