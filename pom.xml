@@ -8,14 +8,14 @@
     <artifactId>testes-unitarios</artifactId>
     <description>Testes unitários em JAVA: Domine JUnit, Mockito e TDD</description>
     <version>1.0-SNAPSHOT</version>
-<developers>
-    <developer>
-        <id>SW</id>
-        <name>Wybson Santana</name>
-        <url>https://www.linkedin.com/in/wybsonsantana/</url>
-        <organization>S2W</organization>
-    </developer>
-</developers>
+    <developers>
+        <developer>
+            <id>SW</id>
+            <name>Wybson Santana</name>
+            <url>https://www.linkedin.com/in/wybsonsantana/</url>
+            <organization>S2W</organization>
+        </developer>
+    </developers>
 
     <properties>
         <maven.compiler.source>11</maven.compiler.source>
